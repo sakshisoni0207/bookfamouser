@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Registering Page</title>
+    <style>
+        /* CSS for the Black Heading */
+        .heading-box {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        <meta name="google-site-verification" content="n9GW9t_U3FFIEu2V4oQA0JZPvc51MbDchb6wuu24EO4" />
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select {
+            padding: 8px;
+            width: 300px;
+        }
+
+        /* Black Submit Button */
+        button {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #333; 
+        }
+
+        /* Style for the new link at the bottom */
+        .gallery-link {
+            margin-top: 20px;
+            display: block;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heading-box">
+        <h1>Book Registering Page</h1>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label>Name of the Author:</label>
+        <input type="text" id="authorName" placeholder="Enter author name">
+    </div>
+
+    <div class="form-group">
+        <label>Name of the Book:</label>
+        <input type="text" id="bookName" placeholder="Enter book name">
+    </div>
+
+    <div class="form-group">
+        <label>Ages:</label>
+        <select id="bookAge">
+            <option value="Select">Select</option>
+            <option value="All ages">All ages</option>
+            <option value="7+">7+</option>
+            <option value="13+">13+</option>
+            <option value="16+">16+</option>
+            <option value="18+">18+</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Type of Book:</label>
+        <select id="bookType">
+            <option value="Select">Select</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Non-Fiction">Non-Fiction</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Link of the book:</label>
+        <input type="text" id="bookLink" placeholder="Paste link here (e.g. https://...)">
+    </div>
+
+    <button onclick="submitBook()">Submit</button>
+
+    <br><br>
+
+    <a href="I3.html">Click here to see the Famous Book Gallery</a>
+
+    <script>
+        function submitBook() {
+            var author = document.getElementById("authorName").value;
+            var book = document.getElementById("bookName").value;
+            var age = document.getElementById("bookAge").value;
+            var type = document.getElementById("bookType").value;
+            var link = document.getElementById("bookLink").value;
+
+            var isValidLink = link.includes("http") && link.includes(".");
+
+            if (!isValidLink) {
+                alert("I think it's not a proper link try again!");
+                return;
+            }
+
+            var existingBooks = JSON.parse(localStorage.getItem("myFamousBooks")) || [];
+
+            var isDuplicate = false;
+            for (var i = 0; i < existingBooks.length; i++) {
+                if (existingBooks[i].bookName === book && existingBooks[i].authorName === author) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+
+            if (isDuplicate) {
+                alert("Oh no! Can't submit this it's already famous");
+            } else {
+                var newBook = {
+                    authorName: author,
+                    bookName: book,
+                    ageGroup: age,
+                    bookType: type,
+                    bookLink: link
+                };
+
+                existingBooks.push(newBook);
+                localStorage.setItem("myFamousBooks", JSON.stringify(existingBooks));
+                alert("Yayy! your book is famous now");
+            }
+        }
+    </script>
+
+</body>
+</html>

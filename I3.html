@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Famous Books Gallery</title>
+    <style>
+        /* CSS for the Black Heading */
+        .heading-box {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        /* Style for the return link */
+        .return-link {
+            display: block;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<meta name="google-site-verification" content="n9GW9t_U3FFIEu2V4oQA0JZPvc51MbDchb6wuu24EO4" />
+<body>
+
+    <div class="heading-box">
+        <h1>Famous Books Gallery</h1>
+    </div>
+
+    <table id="galleryTable">
+        <thead>
+            <tr>
+                <th>Author</th>
+                <th>Book Name</th>
+                <th>Age Group</th>
+                <th>Type</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+
+    <a href="I2.html">Go back to register the book</a>
+
+    <script>
+        window.onload = function() {
+            var savedBooks = JSON.parse(localStorage.getItem("myFamousBooks")) || [];
+            var tableBody = document.querySelector("#galleryTable tbody");
+
+            for (var i = 0; i < savedBooks.length; i++) {
+                var book = savedBooks[i];
+                var row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${book.authorName}</td>
+                    <td>${book.bookName}</td>
+                    <td>${book.ageGroup}</td>
+                    <td>${book.bookType}</td>
+                    <td><a href="${book.bookLink}" target="_blank">View Book</a></td>
+                `;
+
+                tableBody.appendChild(row);
+            }
+        };
+    </script>
+
+</body>
+</html>
